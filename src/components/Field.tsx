@@ -111,6 +111,27 @@ function Field({ formik, ...props }: FieldProps) {
         )
       }
     }
+
+    if (props.type === 'select') {
+      return (
+        <Select
+          {...commonInputProps}
+          id={fieldId}
+          value={formik.values[props.name] ?? ''}
+          error={hasError}
+          style={{
+            backgroundColor: '#FFF',
+            minWidth: '140px',
+          }}
+        >
+          {props.options!.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </Select>
+      )
+    }
   }
 
   return (
