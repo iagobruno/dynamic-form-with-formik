@@ -17,7 +17,7 @@ export default function App() {
 
       <Form
         fields={formData.groups[0].fields}
-        onSubmit={() => console.log('ENVIOU')}
+        onSubmit={async () => console.log('ENVIOU')}
       />
     </Container>
   )
@@ -45,7 +45,7 @@ const Description = styled.p`
 
 const RequiredText = styled.span`
   display: block;
-  color: #d32f2f;
+  color: red;
   font-size: 0.9em;
   margin-top: 10px;
 `

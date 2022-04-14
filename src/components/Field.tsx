@@ -10,19 +10,10 @@ import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
+import type { IField } from '../common/types'
 
-interface FieldProps {
+interface FieldProps extends IField {
   formik: FormikProps<any>
-  type: 'text' | 'textarea' | 'number' | 'checkbox'
-  name: string
-  placeholder?: string
-  label: string
-  options?: string[]
-  validation: {
-    required?: boolean
-    min?: number
-    max?: number
-  }
 }
 
 function Field({ formik, ...props }: FieldProps) {
@@ -32,10 +23,13 @@ function Field({ formik, ...props }: FieldProps) {
     onBlur: formik.handleBlur,
   }
   const fieldId = props.name + '-field'
-  const hasError = formik.submitCount >= 1 && Boolean(formik.errors[props.name])
+  const hasError =
+    (formik.touched[props.name] || formik.submitCount >= 1) &&
+    Boolean(formik.errors[props.name])
 
   function renderControl() {
     if (props.type === 'text' || props.type === 'textarea') {
+      console.log('RENDERIZOU')
       return (
         <TextField
           {...commonInputProps}
@@ -47,9 +41,9 @@ function Field({ formik, ...props }: FieldProps) {
           multiline={props.type === 'textarea'}
           rows={6}
           inputProps={{
-            required: props.validation.required,
-            maxLength: props.validation.max,
-            minLength: props.validation.min,
+            required: props.validations?.required,
+            maxLength: props.validations?.max,
+            minLength: props.validations?.min,
           }}
           style={{
             backgroundColor: '#FFF',
@@ -69,9 +63,9 @@ function Field({ formik, ...props }: FieldProps) {
           value={formik.values[props.name]}
           error={hasError}
           inputProps={{
-            required: props.validation.required,
-            max: props.validation.max,
-            min: props.validation.min,
+            required: props.validations?.required,
+            max: props.validations?.max,
+            min: props.validations?.min,
           }}
           style={{
             backgroundColor: '#FFF',
@@ -82,34 +76,32 @@ function Field({ formik, ...props }: FieldProps) {
       )
     }
 
+    if (props.type === 'radio') {
+      return (
+        <RadioGroup>
+          {props.options!.map((option) => (
+            <FormControlLabel
+              key={option}
+              control={<Radio {...commonInputProps} value={option} />}
+              label={option}
+            />
+          ))}
+        </RadioGroup>
+      )
+    }
+
     if (props.type === 'checkbox') {
-      const toSelectOnlyOne =
-        props.validation.min === 1 && props.validation.max === 1
-      if (toSelectOnlyOne) {
-        return (
-          <RadioGroup>
-            {props.options!.map((option) => (
-              <FormControlLabel
-                key={option}
-                control={<Radio {...commonInputProps} value={option} />}
-                label={option}
-              />
-            ))}
-          </RadioGroup>
-        )
-      } else {
-        return (
-          <FormGroup>
-            {props.options!.map((option) => (
-              <FormControlLabel
-                key={option}
-                control={<Checkbox {...commonInputProps} value={option} />}
-                label={option}
-              />
-            ))}
-          </FormGroup>
-        )
-      }
+      return (
+        <FormGroup>
+          {props.options!.map((option) => (
+            <FormControlLabel
+              key={option}
+              control={<Checkbox {...commonInputProps} value={option} />}
+              label={option}
+            />
+          ))}
+        </FormGroup>
+      )
     }
 
     if (props.type === 'select') {
@@ -137,7 +129,7 @@ function Field({ formik, ...props }: FieldProps) {
   return (
     <div>
       <FormLabel htmlFor={fieldId} style={{ display: 'block' }}>
-        {props.label} {props.validation.required && <Required>*</Required>}
+        {props.label} {props.validations?.required && <Required>*</Required>}
       </FormLabel>
       {renderControl()}
       {hasError && <ErrorMessage>{formik.errors[props.name]}</ErrorMessage>}
@@ -156,15 +148,15 @@ export default React.memo(Field, (prevProps, nextProps) => {
 })
 
 const Required = styled.span`
-  color: #d32f2f;
+  color: red;
   font-weight: 600;
   line-height: 1.66;
 `
 
 const ErrorMessage = styled.p`
-  color: #d32f2f;
+  color: red;
   font-weight: 400;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   line-height: 1.66;
   margin: 0;
 `

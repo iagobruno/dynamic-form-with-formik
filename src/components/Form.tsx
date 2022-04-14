@@ -3,29 +3,25 @@ import { Formik, FormikProps } from 'formik'
 import Field from './Field'
 import styled from 'styled-components'
 import Button from '@mui/material/Button'
+import type { IFieldGroup } from '../common/types'
+import constructYupSchema from '../common/constructYupSchema'
 
 interface FormProps {
-  fields: any[]
+  fields: IFieldGroup
   onSubmit?: () => void
 }
 
 export default function Form(props: FormProps) {
-  function validate(values: Record<string, any>) {
-    const errors: Record<string, any> = {
-      name: 'Is required',
-      age: 'Idade mínima de 16 anos',
-      experience: 'Select one option',
-      area: 'Select at least one option',
-    }
-
-    return errors
-  }
+  const validationSchema = React.useMemo(
+    () => constructYupSchema(props.fields),
+    [props.fields]
+  )
 
   return (
     <Formik
       initialValues={{}}
-      validate={validate}
-      // validateOnMount
+      validateOnMount
+      validationSchema={validationSchema}
       onSubmit={() => props.onSubmit?.()}
     >
       {(formik: FormikProps<any>) => (
