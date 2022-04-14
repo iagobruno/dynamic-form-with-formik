@@ -81,6 +81,20 @@ function Field({ formik, ...props }: FieldProps) {
         />
       )
     }
+    if (props.type === 'checkbox') {
+        return (
+          <FormGroup>
+            {props.options!.map((option) => (
+              <FormControlLabel
+                key={option}
+                control={<Checkbox {...commonInputProps} value={option} />}
+                label={option}
+              />
+            ))}
+          </FormGroup>
+        )
+      }
+    }
   }
 
   return (
