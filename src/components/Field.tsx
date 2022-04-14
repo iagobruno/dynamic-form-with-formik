@@ -81,7 +81,23 @@ function Field({ formik, ...props }: FieldProps) {
         />
       )
     }
+
     if (props.type === 'checkbox') {
+      const toSelectOnlyOne =
+        props.validation.min === 1 && props.validation.max === 1
+      if (toSelectOnlyOne) {
+        return (
+          <RadioGroup>
+            {props.options!.map((option) => (
+              <FormControlLabel
+                key={option}
+                control={<Radio {...commonInputProps} value={option} />}
+                label={option}
+              />
+            ))}
+          </RadioGroup>
+        )
+      } else {
         return (
           <FormGroup>
             {props.options!.map((option) => (
