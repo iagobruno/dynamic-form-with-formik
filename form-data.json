@@ -1,0 +1,82 @@
+{
+    "groups": [
+        {
+            "title": "Dados pessoais",
+            "fields": [
+                {
+                    "label": "Seu nome:",
+                    "type": "text",
+                    "name": "name",
+                    "placeholder": "Digite seu nome...",
+                    "validation": {
+                        "required": true,
+                        "min": 3,
+                        "max": 255
+                    }
+                },
+                {
+                    "label": "Sua idade:",
+                    "type": "number",
+                    "name": "age",
+                    "validation": {
+                        "required": true,
+                        "min": 16
+                    }
+                },
+                {
+                  "label": "Fale sobre você:",
+                  "type": "textarea",
+                  "name": "about",
+                  "placeholder": "Escreva um pouco sobre você...",
+                  "validation": {
+                      "required": true,
+                      "min": 20
+                  }
+              },
+                {
+                  "label": "Tempo de experiência",
+                  "type": "checkbox",
+                  "name": "experience",
+                  "options": [
+                    "1-2 anos",
+                    "3-5 anos",
+                    "5-10 anos",
+                    "+ 10 anos"
+                  ],
+                  "validation": {
+                    "required": true,
+                    "min": 1,
+                    "max": 1
+                  }
+                },
+                {
+                  "label": "Em qual área você quer atuar?",
+                  "type": "checkbox",
+                  "name": "area",
+                  "options": [
+                    "Front-end",
+                    "Back-end",
+                    "Full-stack"
+                  ],
+                  "validation": {
+                    "required": true,
+                    "min": 1
+                  }
+                },
+                {
+                  "label": "Você assiste Big Brother Brasil?",
+                  "type": "select",
+                  "name": "bbb",
+                  "options": [
+                    "sim, sempre",
+                    "as vezes",
+                    "não assisto"
+                  ],
+                  "validation": {
+                    "required": true
+                  }
+                }
+            ]
+        }
+    ]
+}

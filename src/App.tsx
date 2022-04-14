@@ -1,45 +1,51 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
+import Form from './components/Form'
+import formData from '../form-data.json'
 
-function App() {
-    const [count, setCount] = useState(0)
+export default function App() {
+  return (
+    <Container>
+      <Title>Formulário dinâmico</Title>
+      <Description>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium,
+        similique? Maiores deserunt molestiae laborum quaerat explicabo incidunt
+        temporibus cum veritatis ad placeat delectus tenetur omnis rerum, minima
+        impedit? Aliquam, fuga?
+        <RequiredText>*Obrigatório</RequiredText>
+      </Description>
 
-    return (
-        <div className="App">
-            <header className="App-header">
-                <p>Hello Vite + React!</p>
-                <p>
-                    <button
-                        type="button"
-                        onClick={() => setCount((count) => count + 1)}
-                    >
-                        count is: {count}
-                    </button>
-                </p>
-                <p>
-                    Edit <code>App.tsx</code> and save to test HMR updates.
-                </p>
-                <p>
-                    <a
-                        className="App-link"
-                        href="https://reactjs.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Learn React
-                    </a>
-                    {' | '}
-                    <a
-                        className="App-link"
-                        href="https://vitejs.dev/guide/features.html"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Vite Docs
-                    </a>
-                </p>
-            </header>
-        </div>
-    )
+      <Form
+        fields={formData.groups[0].fields}
+        onSubmit={() => console.log('ENVIOU')}
+      />
+    </Container>
+  )
 }
 
-export default App
+const Container = styled.div`
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: flex-start;
+  width: min(660px, 100vw);
+`
+
+const Title = styled.h1`
+  font-size: 2.8rem;
+  margin: 0 0 10px;
+`
+
+const Description = styled.p`
+  color: rgb(0 0 0 / 80%);
+  line-height: 1.7rem;
+  margin: 0 0 26px;
+`
+
+const RequiredText = styled.span`
+  display: block;
+  color: #d32f2f;
+  font-size: 0.9em;
+  margin-top: 10px;
+`
