@@ -59,6 +59,28 @@ function Field({ formik, ...props }: FieldProps) {
         />
       )
     }
+
+    if (props.type === 'number') {
+      return (
+        <TextField
+          {...commonInputProps}
+          id={fieldId}
+          type="number"
+          value={formik.values[props.name]}
+          error={hasError}
+          inputProps={{
+            required: props.validation.required,
+            max: props.validation.max,
+            min: props.validation.min,
+          }}
+          style={{
+            backgroundColor: '#FFF',
+            width: '140px',
+          }}
+          variant="outlined"
+        />
+      )
+    }
   }
 
   return (
