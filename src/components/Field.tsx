@@ -34,7 +34,7 @@ function Field({ formik, ...props }: FieldProps) {
         <TextField
           {...commonInputProps}
           id={fieldId}
-          type="text"
+          type={props.name === 'email' ? 'email' : 'text'}
           value={formik.values[props.name]}
           placeholder={props.placeholder}
           error={hasError}
