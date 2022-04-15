@@ -3,91 +3,99 @@
         {
             "title": "Dados pessoais",
             "fields": [
-                {
-                    "label": "Seu nome:",
-                    "type": "text",
-                    "name": "name",
-                    "placeholder": "Digite seu nome...",
-                    "validations": {
-                        "required": true,
-                        "min": 3,
-                        "max": 255
-                    }
-                },
-                {
-                    "label": "Sua idade:",
-                    "type": "number",
-                    "name": "age",
-                    "validations": {
-                        "required": true,
-                        "min": 16
-                    }
-                },
-                {
-                  "label": "Seu email para contato:",
-                  "type": "text",
-                  "name": "email",
-                  "placeholder": "Digite seu email...",
-                  "validations": {
-                      "required": true,
-                      "email": true
-                  }
-              },
-                {
-                  "label": "Fale sobre você:",
-                  "type": "textarea",
-                  "name": "about",
-                  "placeholder": "Escreva um pouco sobre você...",
-                  "validations": {
-                      "required": true,
-                      "min": 20
-                  }
-              },
-                {
-                  "label": "Tempo de experiência",
-                  "type": "radio",
-                  "name": "experience",
-                  "options": [
-                    "1-2 anos",
-                    "3-5 anos",
-                    "5-10 anos",
-                    "+ 10 anos"
-                  ],
-                  "validations": {
-                    "required": true
-                  }
-                },
-                {
-                  "label": "Em qual área você quer atuar?",
-                  "type": "checkbox",
-                  "name": "area",
-                  "options": [
-                    "Front-end",
-                    "Back-end",
-                    "Full-stack",
-                    "Mobile",
-                    "Desktop"
-                  ],
-                  "validations": {
-                    "required": true,
-                    "min": 1,
-                    "max": 3
-                  }
-                },
-                {
-                  "label": "Você assiste Big Brother Brasil?",
-                  "type": "select",
-                  "name": "bbb",
-                  "options": [
-                    "sim, sempre",
-                    "as vezes",
-                    "não assisto"
-                  ],
-                  "validations": {
-                    "required": true
-                  }
+              {
+                "type": "text",
+                "name": "name",
+                "label": "Seu nome:",
+                "placeholder": "Digite seu nome...",
+                "validations": {
+                  "required": true,
+                  "min": 3,
+                  "max": 255
                 }
+              },
+              {
+                "type": "number",
+                "name": "age",
+                "label": "Seu idade:",
+                "validations": {
+                  "required": true,
+                  "min": 16
+                }
+              },
+              {
+                "type": "textarea",
+                "name": "about",
+                "label": "Sobre você:",
+                "placeholder": "Conte um pouco sobre você...",
+                "validations": {
+                  "required": true,
+                  "min": 20,
+                  "max": 10000
+                }
+              }
             ]
+        },
+        {
+          "title": "Dados profissionais",
+          "fields": [
+            {
+              "type": "radio",
+              "name": "experience",
+              "label": "A quanto tempo você trabalha na área?",
+              "options": [
+                "1 ano",
+                "2 - 3 anos",
+                "4 - 5 anos",
+                "5 - 8 anos",
+                "8 - 10 anos",
+                "+ 10 anos"
+              ],
+              "validations": {
+                "required": true
+              }
+            },
+            {
+              "type": "checkbox",
+              "name": "area",
+              "label": "Qual seu área de atuação?",
+              "options": [
+                "Front-end",
+                "Back-end",
+                "Full-stack",
+                "Mobile",
+                "Desktop",
+                "Games"
+              ],
+              "validations": {
+                "required": true,
+                "min": 1
+              }
+            },
+            {
+              "type": "select",
+              "name": "language",
+              "label": "Qual linguagem de programação que você mais tem confiança para trabalhar?",
+              "options": [
+                "JavaScript",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Go",
+                "Rust",
+                "Elixir",
+                "Java",
+                "Swift",
+                "Kotlin",
+                "Dart",
+                "C#",
+                ".NET"
+              ],
+              "validations": {
+                "required": true
+              }
+            }
+          ]
         }
     ]
 }

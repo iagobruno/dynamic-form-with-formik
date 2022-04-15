@@ -1,3 +1,5 @@
+export type IFormSectionGroup = IFormSection[]
+
 export interface IFormSection {
   title: string
   fields: IFieldGroup

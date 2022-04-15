@@ -29,13 +29,12 @@ function Field({ formik, ...props }: FieldProps) {
 
   function renderControl() {
     if (props.type === 'text' || props.type === 'textarea') {
-      console.log('RENDERIZOU')
       return (
         <TextField
           {...commonInputProps}
           id={fieldId}
           type={props.name === 'email' ? 'email' : 'text'}
-          value={formik.values[props.name]}
+          value={formik.values[props.name] ?? ''}
           placeholder={props.placeholder}
           error={hasError}
           multiline={props.type === 'textarea'}
@@ -60,7 +59,7 @@ function Field({ formik, ...props }: FieldProps) {
           {...commonInputProps}
           id={fieldId}
           type="number"
-          value={formik.values[props.name]}
+          value={formik.values[props.name] ?? ''}
           error={hasError}
           inputProps={{
             required: props.validations?.required,
@@ -78,7 +77,10 @@ function Field({ formik, ...props }: FieldProps) {
 
     if (props.type === 'radio') {
       return (
-        <RadioGroup>
+        <RadioGroup
+          {...commonInputProps}
+          value={formik.values[props.name] ?? ''}
+        >
           {props.options!.map((option) => (
             <FormControlLabel
               key={option}
@@ -96,7 +98,13 @@ function Field({ formik, ...props }: FieldProps) {
           {props.options!.map((option) => (
             <FormControlLabel
               key={option}
-              control={<Checkbox {...commonInputProps} value={option} />}
+              control={
+                <Checkbox
+                  {...commonInputProps}
+                  checked={formik.values[props.name]?.includes(option) ?? false}
+                  value={option}
+                />
+              }
               label={option}
             />
           ))}

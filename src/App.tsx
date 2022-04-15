@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Form from './components/Form'
+import DynamicForm from './components/DynamicForm'
 import formData from '../form-data.json'
+console.log('formData :', formData)
 
 export default function App() {
   return (
@@ -15,9 +16,10 @@ export default function App() {
         <RequiredText>*Obrigatório</RequiredText>
       </Description>
 
-      <Form
-        fields={formData.groups[0].fields}
-        onSubmit={async () => console.log('ENVIOU')}
+      <DynamicForm
+        // @ts-ignore
+        form={formData.groups}
+        onSubmit={async (values) => console.log('ENVIOU', values)}
       />
     </Container>
   )
@@ -29,7 +31,7 @@ const Container = styled.div`
   flex-direction: column;
   /* justify-content: center; */
   align-items: flex-start;
-  width: min(660px, 100vw);
+  width: min(660px, 100%);
 `
 
 const Title = styled.h1`

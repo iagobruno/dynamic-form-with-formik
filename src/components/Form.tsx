@@ -6,9 +6,14 @@ import type { IFieldGroup } from '../common/types'
 import constructYupSchema from '../common/constructYupSchema'
 import Field from './Field'
 
+type Values = Record<string, string | string[]>
+
 interface FormProps {
   fields: IFieldGroup
-  onSubmit?: () => void
+  initialValues: Values
+  buttonText: string
+  onSubmit: (values: Values) => void
+  formikRef?: React.MutableRefObject<any>
 }
 
 export default function Form(props: FormProps) {
@@ -17,11 +22,12 @@ export default function Form(props: FormProps) {
     [props.fields]
   )
   const formik = useFormik({
-    initialValues: {},
+    initialValues: props.initialValues,
     validationSchema,
     validateOnMount: true,
-    onSubmit: () => props.onSubmit?.(),
+    onSubmit: props.onSubmit,
   })
+  props.formikRef!.current = formik
 
   return (
     <StyledForm onSubmit={formik.handleSubmit}>
@@ -40,7 +46,7 @@ export default function Form(props: FormProps) {
           }
           variant="contained"
         >
-          {formik.isSubmitting ? 'Enviando...' : 'Enviar'}
+          {props.buttonText}
         </Button>
       </div>
     </StyledForm>
